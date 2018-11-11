@@ -22,7 +22,7 @@ public class BeforeAspect {
 	
 	
 	// Defined as
-	// execution (* PACKAGE.*.*(..) )
+	// execution (* PACKAGE.*.*(..) ) com.example.aop.business.Business.doSomething()
 	@Pointcut("execution(public com.example.aop.business.*.*(..))")
 	public void before(JoinPoint joinPoint){
 		LOGGER.info("**************** Check for user access **********");
