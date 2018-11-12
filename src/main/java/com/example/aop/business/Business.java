@@ -17,6 +17,10 @@ public class Business {
 
 	}
 
+	public String upperC(IDemoFunctional demoFunctional) {
+		return demoFunctional.check(2);
+	}
+
 	public DAO getDao() {
 		return dao;
 	}

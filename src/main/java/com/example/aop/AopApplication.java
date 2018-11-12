@@ -2,20 +2,18 @@ package com.example.aop;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import com.example.aop.business.Business;
 import com.example.aop.business.Business1;
 import com.example.aop.business.Employee;
+import com.example.aop.business.IDemoFunctional;
 
 @SpringBootApplication
 public class AopApplication implements CommandLineRunner {
@@ -44,7 +42,6 @@ public class AopApplication implements CommandLineRunner {
 		Runnable run=() -> System.out.println("**************Inside com.example.aop.CodeToRun.run()**************");
 		new Thread(() -> {System.out.println("**************Inside com.example.aop.CodeToRun.run()**************");
 		}).start();
-		//IDemoFunctional demo = (10) -> System.out.println("**************Inside com.example.aop.CodeToRun.run()**************");
 		
 		Employee e1=new Employee("aa", "ccc", 32);
 		Employee e2=new Employee("ab", "aabbb", 28);
@@ -54,19 +51,11 @@ public class AopApplication implements CommandLineRunner {
 		employees.add(e1);
 		employees.add(e2);
 		employees.add(e3);
-		
+		 
 		System.out.println(employees);
 		
-		Collections.sort(employees,new Comparator<Employee>() {
-
-			
-			@Override
-			public int compare(Employee o1, Employee o2) {
-				// TODO Auto-generated method stub
-				return o1.getName().compareTo(o2.getName());
-			}
-			
-		});
+		
+		Collections.sort(employees,(o1,o2) -> o1.getName().compareTo(o2.getName()));
 		
 		for(Employee emp:employees)
 			System.out.println("***"+emp);
@@ -75,6 +64,23 @@ public class AopApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		/*business.upperC(new IDemoFunctional() {
+			
+			@Override
+			public String check(int a) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});*/
+		
+		LOGGER.info("***************");
+		IDemoFunctional id=(int a) -> "ajkj";
+		
+		IDemoFunctional id2=(int a) -> {return "ajkj";};
+		
+		LOGGER.info(business.upperC(id));
+		
 		LOGGER.info(business.doSomething());
 		LOGGER.info(business1.doSomething());
 
